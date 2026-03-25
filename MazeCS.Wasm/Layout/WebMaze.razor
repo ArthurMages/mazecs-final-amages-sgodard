@@ -1,17 +1,17 @@
 @* WebMaze.razor - Component for displaying the maze grid *@
 @using MazeCs.Shared
+@implements IGridDisplay
 
 <div class="maze" tabindex="0">
     <div class="maze-content">
-        @if (Maze != null && Player != null)
+        @if (grid.Count > 0)
         {
-            @foreach (var row in GetMazeRows())
+            @for (int y = 0; y < grid.Count; y++)
             {
                 <div class="maze-row">
-                    @foreach (var pos in row)
+                    @for (int x = 0; x < grid[y].Count; x++)
                     {
-                        var cell = Maze[pos];
-                        <div class="maze-cell @GetCellClasses(cell, pos)"></div>
+                        <div class="maze-cell @GetCellClasses(grid[y][x], new Vec2d(x, y))"></div>
                     }
                 </div>
             }
@@ -31,50 +31,68 @@
     [Parameter]
     public required Player Player { get; set; }
 
-    private List<List<Vec2d>> GetMazeRows()
-    {
-        if (Maze == null)
-            return new();
+    private List<List<string>> grid = new();
+    private Vec2d playerPos = null!;
 
-        var rows = new List<List<Vec2d>>();
+    protected override void OnParametersSet()
+    {
+        if (Maze == null || Player == null)
+            return;
+
+        // Initialize grid
+        grid.Clear();
         var width = Maze.MazeSize.X;
         var height = Maze.MazeSize.Y;
-
         for (int y = 0; y < height; y++)
         {
-            var row = new List<Vec2d>();
+            var row = new List<string>();
             for (int x = 0; x < width; x++)
             {
-                row.Add(new Vec2d(x, y));
+                row.Add(" ");
             }
-            rows.Add(row);
+            grid.Add(row);
         }
 
-        return rows;
+        // Draw maze and player
+        Maze.Draw(this);
+        Player.Draw(this);
+
+        StateHasChanged();
     }
 
-    private string GetCellClasses(Cell cell, Vec2d pos)
+    void IGridDisplay.DrawGridCell(Vec2d pos, string content, ConsoleColor _)
+    {
+        if (content == Player.PlayerSymbol)
+        {
+            playerPos = pos;
+            return;
+        }
+
+        if (pos.Y >= 0 && pos.Y < grid.Count && pos.X >= 0 && pos.X < grid[pos.Y].Count)
+        {
+            grid[pos.Y][pos.X] = content;
+        }
+    }
+
+    private string GetCellClasses(string cell, Vec2d pos)
     {
         var classes = new List<string>();
 
-        // Check the cell content
-        string content = cell.Content;
-
-        if (content == "█")
+        if (cell == "█")
         {
             classes.Add("wall");
         }
-        else if (content == "★")
+        else if (cell == "★")
         {
             classes.Add("exit");
         }
-        else if (content == "/" || content == "_")
+        else if (cell == "/" || cell == "_")
         {
             classes.Add("door");
-            if (content == "_")
+            if (cell == "_")
                 classes.Add("open");
         }
-        else if (content == ".")
+        else if (cell == ".")
         {
             classes.Add("room");
             classes.Add("items");
@@ -85,7 +103,7 @@
         }
 
         // Check if this is the player position
-        if (Player != null && pos.X == Player.Position.X && pos.Y == Player.Position.Y)
+        if (playerPos != null && pos.X == playerPos.X && pos.Y == playerPos.Y)
         {
             classes.Add("player");
         }
