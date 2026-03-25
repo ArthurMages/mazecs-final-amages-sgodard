@@ -114,7 +114,6 @@ code {
     text-align: start;
 }
 
-/* Maze Component Styles */
 .maze {
     background-image: url('../border.png');
     float: left;

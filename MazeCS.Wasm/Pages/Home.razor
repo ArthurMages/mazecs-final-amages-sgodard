@@ -28,7 +28,6 @@ else
 
     protected override void OnInitialized()
     {
-        // Instanciation du labyrinthe avec un générateur
         const double CoinRate = 0.3;
         const double DoorRate = 0.2;
         var MazeSize = new Vec2d(20, 15);
@@ -44,7 +43,6 @@ else
         Player = new Player(Maze);
         Player.InitializePosition();
 
-        // Abonnement aux événements
         Player.InventoryChanged += OnInventoryChanged;
         Player.ScoreChanged += OnScoreChanged;
 

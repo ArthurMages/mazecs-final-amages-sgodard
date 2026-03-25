@@ -44,6 +44,5 @@ public class Player(Maze maze)
     private readonly List<ICollectable> _inventory = new();
     private int _score = 0;
 
-    // Initialize Position after the constructor completes
     public void InitializePosition() => Position = maze.StartPos;
 }

@@ -1,8 +1,8 @@
-@* WebMaze.razor - Component for displaying the maze grid *@
 @using MazeCs.Shared
 @implements IGridDisplay
+@implements IController
 
-<div class="maze" tabindex="0">
+<div class="maze" tabindex="0" @onkeydown="HandleKeyDown">
     <div class="maze-content">
         @if (grid.Count > 0)
         {
@@ -31,6 +31,10 @@
     [Parameter]
     public required Player Player { get; set; }
 
+    public Vec2d DirectionPressed { get; private set; } = new Vec2d(0, 0);
+    public bool IsCollectPressed { get; private set; } = false;
+    public bool IsEscapePressed { get; private set; } = false;
+
     private List<List<string>> grid = new();
     private Vec2d playerPos = null!;
 
@@ -39,7 +43,6 @@
         if (Maze == null || Player == null)
             return;
 
-        // Initialize grid
         grid.Clear();
         var width = Maze.MazeSize.X;
         var height = Maze.MazeSize.Y;
@@ -53,7 +56,6 @@
             grid.Add(row);
         }
 
-        // Draw maze and player
         Maze.Draw(this);
         Player.Draw(this);
 
@@ -71,6 +73,29 @@
         if (pos.Y >= 0 && pos.Y < grid.Count && pos.X >= 0 && pos.X < grid[pos.Y].Count)
         {
             grid[pos.Y][pos.X] = content;
+        }
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        var key = e.Key;
+        DirectionPressed = key switch
+        {
+            "ArrowLeft" or "q" or "Q" => Vec2d.West,
+            "ArrowRight" or "d" or "D" => Vec2d.East,
+            "ArrowUp" or "z" or "Z" => Vec2d.North,
+            "ArrowDown" or "s" or "S" => Vec2d.South,
+            _ => new Vec2d(0, 0)
+        };
+        IsCollectPressed = key == " ";
+        IsEscapePressed = key == "Escape";
+
+        if (DirectionPressed != Vec2d.Origin || IsCollectPressed || IsEscapePressed)
+        {
+            Player.Move(this, out _);
+            Maze.Draw(this);
+            Player.Draw(this);
+            StateHasChanged();
         }
     }
 
@@ -102,7 +127,6 @@
             classes.Add("room");
         }
 
-        // Check if this is the player position
         if (playerPos != null && pos.X == playerPos.X && pos.Y == playerPos.Y)
         {
             classes.Add("player");

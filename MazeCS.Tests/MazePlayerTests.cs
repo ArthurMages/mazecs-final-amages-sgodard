@@ -58,8 +58,7 @@ public class MazePlayerTests
         // Act
         player.InventoryChanged += (sender, e) => eventRaised = true;
 
-        // Assert - simply verify the subscription doesn't throw
-        Assert.False(eventRaised); // Event hasn't been raised yet
+        Assert.False(eventRaised);
     }
 
     [Fact]
