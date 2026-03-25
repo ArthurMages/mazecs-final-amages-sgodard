@@ -1,4 +1,4 @@
-﻿namespace MazeCS.Cells;
+﻿namespace MazeCs.Shared.Cells;
 
 internal class Start : Room
 {

@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MazeCs.Shared\MazeCs.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

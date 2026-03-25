@@ -1,7 +1,7 @@
-﻿namespace MazeCS;
+﻿namespace MazeCs.Shared;
 
-using MazeCS.Cells;
-using MazeCS.Collectables;
+using MazeCs.Shared.Cells;
+using MazeCs.Shared.Collectables;
 
 public class MazeGen(Vec2d MazeSize, Vec2d StartPos, double coinRate, double doorRate) : IMazeGenerator
 {    

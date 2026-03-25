@@ -1,4 +1,4 @@
-﻿namespace MazeCS.Cells;
+﻿namespace MazeCs.Shared.Cells;
 internal class Exit : Room
 {
     public static readonly Exit Instance = new Exit();

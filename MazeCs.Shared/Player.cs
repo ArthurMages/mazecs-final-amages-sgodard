@@ -1,4 +1,4 @@
-﻿namespace MazeCS;
+﻿namespace MazeCs.Shared;
 
 public class Player(Maze maze)
 {

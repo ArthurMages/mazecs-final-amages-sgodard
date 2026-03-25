@@ -1,6 +1,6 @@
-﻿namespace MazeCS.Cells;
+﻿namespace MazeCs.Shared.Cells;
 
-using MazeCS.Collectables;
+using MazeCs.Shared.Collectables;
 
 internal class Door : Cell
 {

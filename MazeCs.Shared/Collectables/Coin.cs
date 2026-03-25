@@ -1,4 +1,4 @@
-﻿namespace MazeCS.Collectables;
+﻿namespace MazeCs.Shared.Collectables;
 
 internal class Coin : ICollectable
 {

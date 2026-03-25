@@ -1,4 +1,4 @@
-using MazeCS;
+using MazeCs.Shared;
 using MazeCS.ConsoleUI;
 
 Vec2d MazePos  = new(0, 3);

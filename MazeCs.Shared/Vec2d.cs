@@ -1,4 +1,4 @@
-﻿namespace MazeCS;
+﻿namespace MazeCs.Shared;
 
 public record Vec2d(int X, int Y)
 {

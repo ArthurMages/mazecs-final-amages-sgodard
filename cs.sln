@@ -4,6 +4,8 @@ VisualStudioVersion = 18.4.11612.150 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "MazeCS.Console\Program.csproj", "{A79B94AA-BFF6-A556-3BB2-DF0E5C417A55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeCs.Shared", "MazeCs.Shared\MazeCs.Shared.csproj", "{3605BD29-8CFF-4604-A5CD-1B7873E60449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{A79B94AA-BFF6-A556-3BB2-DF0E5C417A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79B94AA-BFF6-A556-3BB2-DF0E5C417A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79B94AA-BFF6-A556-3BB2-DF0E5C417A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3605BD29-8CFF-4604-A5CD-1B7873E60449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3605BD29-8CFF-4604-A5CD-1B7873E60449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3605BD29-8CFF-4604-A5CD-1B7873E60449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3605BD29-8CFF-4604-A5CD-1B7873E60449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

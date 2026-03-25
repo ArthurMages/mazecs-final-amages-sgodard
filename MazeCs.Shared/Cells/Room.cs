@@ -1,4 +1,4 @@
-﻿namespace MazeCS.Cells;
+﻿namespace MazeCs.Shared.Cells;
 
 internal class Room(IEnumerable<ICollectable>? items = null) : Cell
 {
