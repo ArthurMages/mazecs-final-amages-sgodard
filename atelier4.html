@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .maze {
+            background-image: url('border.png');
+            float: left;
+            padding: 0 8px;
+        }
+
+        .maze-content,
+        .maze-bottom {
+            padding-top: 64px;
+            background-image: url('wall.png');
+            float: left;
+        }
+
+        .maze-bottom {
+            background-position-x: -64px;
+            width: calc(100% + 16px);
+            margin: -8px;
+        }
+
+        .maze-row {
+            margin-top: -32px;
+            float: left;
+            clear: left;
+        }
+
+        .maze-cell {
+            width: 32px;
+            height: 64px;
+            float: left;
+            background-image: url('maze.png');
+            background-size: 192px 128px;
+        }
+
+        .player {
+            background-position-y: -64px;
+        }
+
+        .wall {
+            background-position-x: -32px;
+        }
+
+        .items {
+            background-position-x: -64px;
+        }
+
+        .door {
+            background-position-x: -96px;
+        }
+
+        .open {
+            background-position-x: -128px;
+        }
+
+        .exit {
+            background-position-x: -160px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="maze" tabindex="0">
+        <div class="maze-content">
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell player open"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell open"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell door"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell items"></div>
+            </div>
+            <div class="maze-row">
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell door"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell items"></div>
+                <div class="maze-cell room"></div>
+                <div class="maze-cell wall"></div>
+                <div class="maze-cell exit"></div>
+            </div><!--!-->
+            <div class="maze-bottom"></div>
+        </div>
+    </div>
+</body>
+
+</html>

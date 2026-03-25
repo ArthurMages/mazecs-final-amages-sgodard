@@ -1,0 +1,60 @@
+﻿@page "/"
+@using MazeCs.Shared
+
+<PageTitle>Home</PageTitle>
+
+<h1>🏃 LABYRINTHE BLAZOR 🏃</h1>
+
+<div style="border: 2px solid #0078d4; padding: 20px; background-color: #f3f3f3; border-radius: 8px;">
+    @if (Maze != null && Player != null)
+    {
+        <div style="margin-bottom: 20px;">
+            <h3>Informations du Joueur</h3>
+            <p><strong>Score :</strong> @Player.Score / <strong>Inventaire :</strong> @Player.InventorySize items</p>
+            <p><strong>État :</strong> @(Player.HasWon ? "🎉 Vous avez gagné !" : Player.IsPlaying ? "En cours..." : "Partie terminée")</p>
+        </div>
+    }
+    else
+    {
+        <p>Initialisation du labyrinthe...</p>
+    }
+</div>
+
+@code {
+    public required Maze Maze { get; set; }
+    public required Player Player { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Instanciation du labyrinthe avec un générateur
+        const double CoinRate = 0.3;
+        const double DoorRate = 0.2;
+        var MazeSize = new Vec2d(20, 15);
+
+        var mazeGenerator = new MazeGen(
+            MazeSize,
+            StartPos: Vec2d.Origin,
+            CoinRate,
+            DoorRate
+        );
+
+        Maze = new Maze(mazeGenerator);
+        Player = new Player(Maze);
+
+        // Abonnement aux événements
+        Player.InventoryChanged += OnInventoryChanged;
+        Player.ScoreChanged += OnScoreChanged;
+
+        base.OnInitialized();
+    }
+
+    private void OnInventoryChanged(object? sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    private void OnScoreChanged(object? sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+}
