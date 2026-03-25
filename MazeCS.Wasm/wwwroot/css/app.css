@@ -113,3 +113,65 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* Maze Component Styles */
+.maze {
+    background-image: url('../border.png');
+    float: left;
+    padding: 0 8px;
+}
+
+.maze-content,
+.maze-bottom {
+    padding-top: 64px;
+    background-image: url('../wall.png');
+    float: left;
+}
+
+.maze-bottom {
+    background-position-x: -64px;
+    width: calc(100% + 16px);
+    margin: -8px;
+}
+
+.maze-row {
+    margin-top: -32px;
+    float: left;
+    clear: left;
+}
+
+.maze-cell {
+    width: 32px;
+    height: 64px;
+    float: left;
+    background-image: url('../maze.png');
+    background-size: 192px 128px;
+}
+
+.maze-cell.player {
+    background-position-y: -64px;
+}
+
+.maze-cell.wall {
+    background-position-x: -32px;
+}
+
+.maze-cell.items {
+    background-position-x: -64px;
+}
+
+.maze-cell.door {
+    background-position-x: -96px;
+}
+
+.maze-cell.open {
+    background-position-x: -128px;
+}
+
+.maze-cell.exit {
+    background-position-x: -160px;
+}
+
+.maze-cell.room {
+    background-position-x: 0;
+}

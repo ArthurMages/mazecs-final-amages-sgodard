@@ -16,6 +16,7 @@ public class MazePlayerTests
         var mazeGenerator = new MazeGen(MazeSize, StartPos: Vec2d.Origin, CoinRate, DoorRate);
         var maze = new Maze(mazeGenerator);
         var player = new Player(maze);
+        player.InitializePosition();
 
         // Assert
         Assert.NotNull(maze);
@@ -34,6 +35,7 @@ public class MazePlayerTests
         var mazeGenerator = new MazeGen(new Vec2d(10, 10), StartPos: Vec2d.Origin, 0.3, 0.2);
         var maze = new Maze(mazeGenerator);
         var player = new Player(maze);
+        player.InitializePosition();
 
         // Act
         var startPos = maze.StartPos;
@@ -50,6 +52,7 @@ public class MazePlayerTests
         var mazeGenerator = new MazeGen(new Vec2d(10, 10), StartPos: Vec2d.Origin, 0.3, 0.2);
         var maze = new Maze(mazeGenerator);
         var player = new Player(maze);
+        player.InitializePosition();
         var eventRaised = false;
 
         // Act
@@ -66,6 +69,7 @@ public class MazePlayerTests
         var mazeGenerator = new MazeGen(new Vec2d(10, 10), StartPos: Vec2d.Origin, 0.3, 0.2);
         var maze = new Maze(mazeGenerator);
         var player = new Player(maze);
+        player.InitializePosition();
 
         // Act
         var eventSubscribed = true;

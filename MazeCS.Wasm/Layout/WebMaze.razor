@@ -1,0 +1,96 @@
+@* WebMaze.razor - Component for displaying the maze grid *@
+@using MazeCs.Shared
+
+<div class="maze" tabindex="0">
+    <div class="maze-content">
+        @if (Maze != null && Player != null)
+        {
+            @foreach (var row in GetMazeRows())
+            {
+                <div class="maze-row">
+                    @foreach (var pos in row)
+                    {
+                        var cell = Maze[pos];
+                        <div class="maze-cell @GetCellClasses(cell, pos)"></div>
+                    }
+                </div>
+            }
+            <div class="maze-bottom"></div>
+        }
+        else
+        {
+            <p>Chargement du labyrinthe...</p>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required Maze Maze { get; set; }
+
+    [Parameter]
+    public required Player Player { get; set; }
+
+    private List<List<Vec2d>> GetMazeRows()
+    {
+        if (Maze == null)
+            return new();
+
+        var rows = new List<List<Vec2d>>();
+        var width = Maze.MazeSize.X;
+        var height = Maze.MazeSize.Y;
+
+        for (int y = 0; y < height; y++)
+        {
+            var row = new List<Vec2d>();
+            for (int x = 0; x < width; x++)
+            {
+                row.Add(new Vec2d(x, y));
+            }
+            rows.Add(row);
+        }
+
+        return rows;
+    }
+
+    private string GetCellClasses(Cell cell, Vec2d pos)
+    {
+        var classes = new List<string>();
+
+        // Check the cell content
+        string content = cell.Content;
+
+        if (content == "█")
+        {
+            classes.Add("wall");
+        }
+        else if (content == "★")
+        {
+            classes.Add("exit");
+        }
+        else if (content == "/" || content == "_")
+        {
+            classes.Add("door");
+            if (content == "_")
+                classes.Add("open");
+        }
+        else if (content == ".")
+        {
+            classes.Add("room");
+            classes.Add("items");
+        }
+        else
+        {
+            classes.Add("room");
+        }
+
+        // Check if this is the player position
+        if (Player != null && pos.X == Player.Position.X && pos.Y == Player.Position.Y)
+        {
+            classes.Add("player");
+        }
+
+        return string.Join(" ", classes);
+    }
+}
+

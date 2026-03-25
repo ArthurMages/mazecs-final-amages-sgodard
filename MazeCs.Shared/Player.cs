@@ -10,28 +10,28 @@ public class Player(Maze maze)
         var prevScore = Score;
         
         if (kbd.IsCollectPressed)
-            _inventory.AddRange(maze[_pos].Collect(ref _score));
+            _inventory.AddRange(maze[Position].Collect(ref _score));
 
-        prevPos = _pos;
-        _pos = NextWalkablePos(_pos + kbd.DirectionPressed);                
+        prevPos = Position;
+        Position = NextWalkablePos(Position + kbd.DirectionPressed);                
         
-        HasWon    = maze[_pos].IsEndPos;
+        HasWon    = maze[Position].IsEndPos;
         IsPlaying = !HasWon && !kbd.IsEscapePressed;
 
         if (prevSize !=InventorySize) InventoryChanged?.Invoke(this, EventArgs.Empty);
         if (prevScore!=Score        ) ScoreChanged    ?.Invoke(this, EventArgs.Empty);
-        return prevPos != _pos;
+        return prevPos != Position;
     }
 
     private Vec2d NextWalkablePos(Vec2d nextPos) =>
-        nextPos.IsIn(maze.MazeSize) && maze[nextPos].TryTraverse(_inventory) ? nextPos : _pos;
+        nextPos.IsIn(maze.MazeSize) && maze[nextPos].TryTraverse(_inventory) ? nextPos : Position;
     public void Draw(IGridDisplay gridDisp) =>
-        gridDisp.DrawGridCell(_pos, PlayerSymbol, ConsoleColor.Yellow);
+        gridDisp.DrawGridCell(Position, PlayerSymbol, ConsoleColor.Yellow);
     public Maze Maze => maze;
     public bool IsPlaying { get; private set; } = true;
     public bool HasWon    { get; private set; } = false;
 
-    public Vec2d _pos = maze.StartPos;
+    public Vec2d Position { get; private set; } = Vec2d.Origin;
 
     public event EventHandler? InventoryChanged;
 
@@ -43,4 +43,7 @@ public class Player(Maze maze)
 
     private readonly List<ICollectable> _inventory = new();
     private int _score = 0;
+
+    // Initialize Position after the constructor completes
+    public void InitializePosition() => Position = maze.StartPos;
 }
