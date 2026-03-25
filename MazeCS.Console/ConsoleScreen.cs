@@ -1,5 +1,7 @@
 ﻿namespace MazeCS.ConsoleUI;
 
+using MazeCs.Shared;
+
 public class ConsoleScreen : IDisposable, IGridDisplay
 {
     public ConsoleScreen(Vec2d gridPos)

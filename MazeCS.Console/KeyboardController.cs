@@ -1,5 +1,7 @@
 ﻿namespace MazeCS.ConsoleUI;
 
+using MazeCs.Shared;
+
 public class KeyboardController : IController
 {
     ConsoleKey? _key = null;
